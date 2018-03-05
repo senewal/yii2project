@@ -9,9 +9,37 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\EntryForm;
 
 class SiteController extends Controller
 {
+
+	public function actionEntry()
+	{
+		$model = new EntryForm();
+
+		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+			// если данные в $model удачно проверены
+
+			// делаем что-то полезное с $model ...
+
+			return $this->render('entry-confirm', ['model' => $model]);
+		} else {
+			// либо страница отображается первый раз, либо есть ошибка в данных
+			return $this->render('entry', ['model' => $model]);
+		}
+	}
+	/**
+	 * {@SayHelloj}
+	 */
+	public function actionSay($message = 'Hi')
+	{
+		return $this->render('say',['message' => $message]);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
     /**
      * {@inheritdoc}
      */
